@@ -1,11 +1,19 @@
 import React from 'react';
-import Header from './components/Header'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { NavigationBar } from './components/NavigationBar'
+import HomeScreen from './pages/HomeScreen'
+import ProductScreen from './pages/ProductScreen'
 
 function App() {
   return (
-    <div className="App">
-      <Header/>
-    </div>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <NavigationBar>
+        <Switch>
+          <Route path="/" exact={true} component={HomeScreen} />
+          <Route path="/product/:id" component={ProductScreen} />
+        </Switch>
+      </NavigationBar>
+    </BrowserRouter>
   );
 }
 
