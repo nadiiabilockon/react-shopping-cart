@@ -9,7 +9,7 @@ import { NavBarMobile } from './NavBarMobile';
 import { NavBarDesktop } from './NavBarDesktop';
 
 const NavBarChildren = ({ children }) => (
-    <Container style={{ marginTop: "5em" }}>{children}</Container>
+    <React.Fragment>{children}</React.Fragment>
 );
 
 export class NavigationBar extends Component {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid } from 'semantic-ui-react'
 import ProductItem from "./ProductItem"
-import { data } from "./data"
+import { data } from "../../data"
 
 export default function ProductsList() {
     return (

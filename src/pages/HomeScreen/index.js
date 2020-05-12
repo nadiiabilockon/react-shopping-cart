@@ -1,10 +1,13 @@
 import React from 'react'
 import ProductsList from '../../components/ProductsList'
+import {
+    Container
+} from "semantic-ui-react";
 
 export default function HomeScreen() {
     return (
-        <div>
+        <Container>
             <ProductsList />
-        </div>
+        </Container>
     )
 }
