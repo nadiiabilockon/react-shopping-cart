@@ -7,7 +7,7 @@ import './index.less'
 export default function ProductItem({ id, image, name, brand, price }) {
     return (
         <Grid.Column className="product">
-            <Link to={`/product/${id}`}><Image src={image} /></Link>
+            <Link to={`/product/${id}`}><Image src={image[0]} /></Link>
             <figcaption>
                 <b className="product-brand">{brand}</b>
                 <p className="product-name"> {name} </p>

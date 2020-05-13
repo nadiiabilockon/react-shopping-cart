@@ -7,6 +7,7 @@ import {
 export default function HomeScreen() {
     return (
         <Container>
+            <h4 className="home__subtitle">Featured Products</h4>
             <ProductsList />
         </Container>
     )

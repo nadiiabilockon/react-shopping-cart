@@ -8,13 +8,13 @@ function App() {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <NavigationBar>
-      </NavigationBar>
         <main className="main-content">
           <Switch>
             <Route path="/" exact={true} component={HomeScreen} />
             <Route path="/product/:id" component={ProductScreen} />
           </Switch>
         </main>
+      </NavigationBar>
 
     </BrowserRouter>
   );

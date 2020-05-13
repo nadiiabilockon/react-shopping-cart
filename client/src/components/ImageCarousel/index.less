@@ -1,0 +1,160 @@
+// SASS variable for media query breakpoint
+@breakpoint-desktop: 992px;
+
+// Resetting default styles
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+// Fix for jumping arrows
+.carousel-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 210px;
+}
+
+// Carousel slides
+.carousel__slide {
+  margin-right: auto;
+  margin-left: auto;
+  display: none;
+  list-style-type: none;
+  text-align: center;
+
+  img {
+    max-width: 100%;
+    max-height: 720px;
+    display: inline-block;
+  }
+  @media (max-width: 991px) {
+    padding-right: 60px;
+    padding-left: 60px;
+  }
+
+  &--active {
+    display: block;
+  }
+}
+
+// Content of slides
+.carousel-slide__content {
+  margin-bottom: 19px;
+  font-family: "Open Sans", "Trebuchet MS", sans-serif;
+  font-size: 16px;
+
+  @media (max-width: @breakpoint-desktop - 1px) {
+    font-size: 18px;
+  }
+}
+
+.carousel-slide__author,
+.carousel-slide__source {
+  font-family: "Roboto", arial, sans-serif;
+  font-size: 14px;
+
+  @media (min-width: @breakpoint-desktop) {
+    font-size: 16px;
+  }
+}
+
+.carousel-slide__source {
+  font-style: italic;
+  color: #888;
+}
+
+// Carousel arrows
+.carousel__arrow {
+  position: absolute;
+  display: block;
+  height: 50px;
+  width: 30px;
+  line-height: 0px;
+  font-size: 0px;
+  cursor: pointer;
+  background: transparent;
+  color: transparent;
+  top: 50%;
+  margin-top: -10px;
+  padding: 0;
+  border: none;
+  outline: none;
+  opacity: 0.75;
+  -webkit-text-size-adjust: none;
+  -webkit-transition: opacity 0.2s ease-out;
+  -moz-transition: opacity 0.2s ease-out;
+  -ms-transition: opacity 0.2s ease-out;
+  -o-transition: opacity 0.2s ease-out;
+  transition: opacity 0.2s ease-out;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:hover {
+    opacity: 0.5;
+  }
+
+  &--left {
+    left: 10px;
+    position: absolute;
+    background-image: url(../../assets/arrow-left.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: transparent;
+  }
+
+  &--right {
+    right: 10px;
+    position: absolute;
+    background-image: url(../../assets/arrow-right.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: transparent;
+  }
+}
+
+// Carousel indicators
+.carousel__indicators {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 20px;
+
+  button {
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }
+  li {
+    &:nth-of-type(n + 2) {
+      margin-left: 9px;
+    }
+  }
+}
+
+.carousel__indicator {
+  display: block;
+  width: 24px;
+  height: 3px;
+  background-color: #111;
+  cursor: pointer;
+  opacity: 0.15;
+  transition: opacity 0.15s cubic-bezier(0.4, 0, 1, 1);
+
+  &:hover {
+    opacity: 0.5;
+  }
+
+  &--active {
+    &,
+    &:hover {
+      opacity: 0.75;
+    }
+  }
+}
