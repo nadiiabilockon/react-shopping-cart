@@ -2,7 +2,72 @@
   padding-top: 60px;
   padding-bottom: 30px;
   background-color: #f7f7f7;
+
+  .quantity-selector {
+    margin-top: 3em;
+    letter-spacing: 1px;
+    font-size: 0.8em;
+    font-weight: bold;
+  }
+
+  .qty-input {
+    border: 0;
+    display: inline-flex;
+    box-shadow: 0px 0px 0px 1px #000 inset !important;
+    border-radius: 2px;
+    margin-bottom: 1em;
+    max-width: 103px;
+    min-width: 75px;
+
+    .ui.basic.black.button {
+      box-shadow: none !important;
+      margin: 0;
+      padding: 0 12px;
+      font-size: 1rem;
+    }
+
+    input[type="number"] {
+      -webkit-appearance: textfield;
+      -moz-appearance: textfield;
+      appearance: textfield;
+      background: none;
+      text-align: center;
+      width: 100%;
+      margin: 0;
+      max-width: 100%;
+      outline: none;
+      border: none;
+      padding: 8px 10px;
+      line-height: 1.42;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+    }
+  }
+
+  .add-to-cart__wrapper {
+    margin-top: 2.7em;
+
+    .unicode {
+      font-family: "Lucida Sans Unicode", "Arial Unicode MS, Arial";
+    }
+
+    .ui.basic.black.button {
+      letter-spacing: 1px;
+      padding: 12px 20px;
+      line-height: 1.3em;
+      font-size: 1.3em;
+
+      &:hover {
+        color: #fff!important;
+        background-color: #000!important;
+      }
+    }
+  }
 }
+
 .breadcrumb {
   margin-bottom: 30px;
   margin-top: -30px;

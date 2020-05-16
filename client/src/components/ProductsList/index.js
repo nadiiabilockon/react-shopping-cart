@@ -8,8 +8,8 @@ export default function ProductsList({ products }) {
             <Grid.Row>
                 {products.map(product =>
                     <ProductItem
-                        key={product.id}
-                        id={product.id}
+                        key={product._id}
+                        id={product._id}
                         image={product.image}
                         name={product.name}
                         brand={product.brand}

@@ -94,33 +94,36 @@ export const ImageCarousel = (props) => {
 
     return (
         <div className="carousel">
-            <CarouselLeftArrow onClick={e => goToPrevSlide(e)} />
+            {props.slides &&
+                (<React.Fragment>
+                    <CarouselLeftArrow onClick={e => goToPrevSlide(e)} />
+                    <ul className="carousel__slides">
+                        {props.slides.map((slide, index) =>
+                            <CarouselSlide
+                                key={index}
+                                index={index}
+                                activeIndex={activeIndex}
+                                slide={slide}
+                                alt={props.alt}
+                            />
+                        )}
+                    </ul>
 
-            <ul className="carousel__slides">
-                {props.slides.map((slide, index) =>
-                    <CarouselSlide
-                        key={index}
-                        index={index}
-                        activeIndex={activeIndex}
-                        slide={slide}
-                        alt={props.alt}
-                    />
-                )}
-            </ul>
+                    <CarouselRightArrow onClick={e => goToNextSlide(e)} />
 
-            <CarouselRightArrow onClick={e => goToNextSlide(e)} />
-
-            <ul className="carousel__indicators">
-                {props.slides.map((slide, index) =>
-                    <CarouselIndicator
-                        key={index}
-                        index={index}
-                        activeIndex={activeIndex}
-                        isActive={activeIndex === index}
-                        onClick={e => goToSlide(index)}
-                    />
-                )}
-            </ul>
+                    <ul className="carousel__indicators">
+                        {props.slides.map((slide, index) =>
+                            <CarouselIndicator
+                                key={index}
+                                index={index}
+                                activeIndex={activeIndex}
+                                isActive={activeIndex === index}
+                                onClick={e => goToSlide(index)}
+                            />
+                        )}
+                    </ul>
+                </React.Fragment>)
+            }
         </div>
     );
 }
