@@ -10,7 +10,7 @@ export default function ProductsList({ products }) {
                     <ProductItem
                         key={product._id}
                         id={product._id}
-                        image={product.image}
+                        images={product.images}
                         name={product.name}
                         brand={product.brand}
                         price={product.price}

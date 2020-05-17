@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from "semantic-ui-react";
+import QuantityInput from '../QuantityInput';
 
 export function ProductInfo({ product, qty, setQty, addToCart }) {
     return (
@@ -10,25 +11,7 @@ export function ProductInfo({ product, qty, setQty, addToCart }) {
             <div className="text-center">
                 <p>Status: {product.countInStock > 0 ? "In Stock" : "Unavailable."}</p>
                 <p className="quantity-selector uppercase">Quantity</p>
-                <div className="qty-input">
-                    <Button
-                        basic
-                        color='black'
-                        content='-'
-                        onClick={() => qty > 1 && setQty(+qty - 1)}
-                    />
-                    <input
-                        type="number"
-                        className="input_qty"
-                        value={product.countInStock > 0 && qty}
-                        onChange={(e) => e.target.value <= product.countInStock && setQty(e.target.value)}
-                        min="1"
-                        step="1"
-                    />
-                    <Button basic color='black'
-                        onClick={() => qty < product.countInStock && setQty(+qty + 1)}
-                        content='+' />
-                </div>
+                <QuantityInput setQty={setQty} qty={qty} countInStock={product.countInStock} />
             </div>
             <div className="add-to-cart__wrapper">
                 <Button basic color='black'

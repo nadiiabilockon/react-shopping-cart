@@ -5,7 +5,7 @@ export const data = {
             brand: "FATE + BECKER",
             price: "89.99",
             _id: "1",
-            image: ["https://cdn.shopify.com/s/files/1/1132/3440/products/FA7BD0EF-340D-491A-B069-9E6AA949CACC_1024x1024.jpg?v=1584063685",
+            images: ["https://cdn.shopify.com/s/files/1/1132/3440/products/FA7BD0EF-340D-491A-B069-9E6AA949CACC_1024x1024.jpg?v=1584063685",
                 "https://cdn.shopify.com/s/files/1/1132/3440/products/B910554E-73E3-40DE-BE37-992BAA826616_1024x1024.jpg?v=1584063685",
                 "https://cdn.shopify.com/s/files/1/1132/3440/products/2E2CEAC8-B1D5-4D0E-AAE1-7AE583A2CA34_1024x1024.jpg?v=1584063685"
             ],
@@ -16,7 +16,7 @@ export const data = {
             brand: "REMAIN",
             price: "129.00",
             _id: "2",
-            image: ["https://cdn.shopify.com/s/files/1/1132/3440/products/image_c7e78445-5144-4b7c-9c96-2093b32584c2_1024x1024.jpg?v=1588494226",
+            images: ["https://cdn.shopify.com/s/files/1/1132/3440/products/image_c7e78445-5144-4b7c-9c96-2093b32584c2_1024x1024.jpg?v=1588494226",
                 "https://cdn.shopify.com/s/files/1/1132/3440/products/2725F687-7C61-4002-A197-E2D87F813DFD_1024x1024.jpg?v=1588494226",
                 "https://cdn.shopify.com/s/files/1/1132/3440/products/9B7E52D7-A395-4072-8A25-BBACCFDA7A46_1024x1024.jpg?v=1588494226"
             ],
@@ -27,7 +27,7 @@ export const data = {
             brand: "NYNE",
             price: "169.00",
             _id: "3",
-            image: ["https://cdn.shopify.com/s/files/1/1132/3440/products/image_c5011932-0485-4e5d-a9f9-6073ec3b685d_large.jpg?v=1583021255"
+            images: ["https://cdn.shopify.com/s/files/1/1132/3440/products/image_c5011932-0485-4e5d-a9f9-6073ec3b685d_large.jpg?v=1583021255"
                 , "",
                 ""],
             countInStock: 56
@@ -37,7 +37,7 @@ export const data = {
             brand: "MARLE",
             price: "450.00",
             _id: "4",
-            image: ["https://cdn.shopify.com/s/files/1/1132/3440/products/image_40418981-0e91-4569-a8c2-907aba28e84e_large.jpg?v=1580783894"
+            images: ["https://cdn.shopify.com/s/files/1/1132/3440/products/image_40418981-0e91-4569-a8c2-907aba28e84e_large.jpg?v=1580783894"
                 , "",
                 ""],
             countInStock: 70
@@ -47,8 +47,7 @@ export const data = {
             brand: "KOWTOW",
             price: "79.00",
             _id: "5",
-            image: ["https://cdn.shopify.com/s/files/1/1132/3440/products/image_9076301c-adc3-4faf-9b93-c588fb05e7cf_large.jpg?v=1582244231"
-
+            images: ["https://cdn.shopify.com/s/files/1/1132/3440/products/image_9076301c-adc3-4faf-9b93-c588fb05e7cf_large.jpg?v=1582244231"
                 , "",
                 ""],
             countInStock: 5
@@ -58,7 +57,7 @@ export const data = {
             brand: "RAINS",
             price: "220.00",
             _id: "6",
-            image: ["https://cdn.shopify.com/s/files/1/1132/3440/products/image_e42a579f-bafe-413c-8b72-c561ffd9dc56_large.jpg?v=1578883099"
+            images: ["https://cdn.shopify.com/s/files/1/1132/3440/products/image_e42a579f-bafe-413c-8b72-c561ffd9dc56_large.jpg?v=1578883099"
                 , "",
                 ""],
             countInStock: 5

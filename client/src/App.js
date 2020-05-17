@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { NavigationBar } from './components/NavigationBar'
 import HomeScreen from './pages/HomeScreen'
 import ProductScreen from './pages/ProductScreen'
+import CartScreen from './pages/CartScreen'
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
         <main className="main-content">
           <Switch>
             <Route path="/" exact={true} component={HomeScreen} />
-            <Route path="/product/:id" component={ProductScreen} />
+            <Route path="/product/:id" component={ProductScreen} />            
+            <Route path="/cart/:id?" component={CartScreen} />
           </Switch>
         </main>
       </NavigationBar>

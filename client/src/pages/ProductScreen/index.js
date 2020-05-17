@@ -41,7 +41,7 @@ export default function ProductScreen(props) {
                             <Grid.Row>
                                 <Grid.Column width={10}>
                                     <div className="carousel-container">
-                                        <ImageCarousel slides={product.image} alt={product.name} />
+                                        <ImageCarousel slides={product.images} alt={product.name} />
                                     </div>
                                 </Grid.Column>
                                 <Grid.Column width={6} textAlign='center'>
