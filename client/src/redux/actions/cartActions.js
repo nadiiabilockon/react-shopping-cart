@@ -1,4 +1,4 @@
-import { CART_ADD_ITEM } from "../../constants/cartConstants";
+import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../../constants/cartConstants";
 import axios from 'axios'
 
 const addToCart = (id, qty) => async (dispatch) => {
@@ -12,12 +12,20 @@ const addToCart = (id, qty) => async (dispatch) => {
                 images: data.images,
                 price: data.price,
                 countInStock: data.countInStock,
-
+                qty
             }
         })
     } catch (error) {
-        // dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message })
     }
 }
 
-export { addToCart }
+const removeFromCart = (id) => async (dispatch) => {
+    try {
+        dispatch({
+            type: CART_REMOVE_ITEM, payload: id
+        })
+    } catch (error) {
+    }
+}
+
+export { addToCart, removeFromCart }
