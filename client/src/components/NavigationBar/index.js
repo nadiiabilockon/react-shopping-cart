@@ -34,9 +34,9 @@ export class NavigationBar extends Component {
         ];
 
         const rightItems = [
-            { as: Link, to: '/cart', content: "Cart", key: "cart" },
-            { as: Link, to: '/', content: "Login", key: "login" },
-            { as: Link, to: '/', content: "Register", key: "register" }
+          { as: Link, to: "/cart", content: "Cart", key: "cart" },
+          { as: Link, to: "/signin", content: "Login", key: "login" },
+          { as: Link, to: "/register", content: "Register", key: "register" },
         ];
 
         return (

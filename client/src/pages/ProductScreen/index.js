@@ -27,29 +27,44 @@ export default function ProductScreen(props) {
         props.history.push("/cart/" + props.match.params.id + "?qty=" + qty)
     }
 
-    return (
-        loading ? <Dimmer active inverted>< Loader size='large' ></Loader ></Dimmer > :
-            error ? <div>{error}</div> :
-                <div className="product-page">
-                    <Container>
-                        <Grid stackable>
-                            <nav className="breadcrumb" role="navigation" aria-label="breadcrumbs">
-                                <Link title="Back to the frontpage" to="/">Home</Link>
-                                <span aria-hidden="true">›</span>
-                                <span>{product.name}</span>
-                            </nav>
-                            <Grid.Row>
-                                <Grid.Column width={10}>
-                                    <div className="carousel-container">
-                                        <ImageCarousel slides={product.images} alt={product.name} />
-                                    </div>
-                                </Grid.Column>
-                                <Grid.Column width={6} textAlign='center'>
-                                    <ProductInfo product={product} qty={qty} setQty={setQty} addToCart={handleAddToCart} />
-                                </Grid.Column>
-                            </Grid.Row>
-                        </Grid>
-                    </Container>
+    return loading ? (
+      <Dimmer active inverted>
+        <Loader size="large"></Loader>
+      </Dimmer>
+    ) : error ? (
+      <div>{error}</div>
+    ) : (
+      <div className="product-page">
+        <Container>
+          <Grid centered>
+            <nav
+              className="breadcrumb"
+              role="navigation"
+              aria-label="breadcrumbs"
+            >
+              <Link title="Back to the frontpage" to="/">
+                Home
+              </Link>
+              <span aria-hidden="true">›</span>
+              <span>{product.name}</span>
+            </nav>
+            <Grid.Row>
+              <Grid.Column width={10}>
+                <div className="carousel-container">
+                  <ImageCarousel slides={product.images} alt={product.name} />
                 </div>
-    )
+              </Grid.Column>
+              <Grid.Column width={6} textAlign="center">
+                <ProductInfo
+                  product={product}
+                  qty={qty}
+                  setQty={setQty}
+                  addToCart={handleAddToCart}
+                />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Container>
+      </div>
+    );
 }
