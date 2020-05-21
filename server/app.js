@@ -1,12 +1,13 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+import createError from "http-errors";
+import express  from "express";
+import path  from "path";
+import cookieParser  from "cookie-parser";
+import logger  from "morgan";
+import bodyParser from "body-parser"; 
 
-var indexRouter = require("./routes/index");
-var productRouter = require("./routes/product");
-var userRouter = require("./routes/user");
+import indexRouter  from "./routes/index";
+import productRouter  from "./routes/product";
+import userRouter from "./routes/user";
 
 import dotenv from "dotenv";
 import config from "./config";
@@ -25,6 +26,8 @@ mongoose
   .catch((error) => console.log(error.reason));
 
 var app = express();
+
+app.use(bodyParser.json());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

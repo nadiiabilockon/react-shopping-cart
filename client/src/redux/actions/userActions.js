@@ -4,6 +4,9 @@ import {
   USER_SIGN_IN_FAIL,
   USER_SIGN_IN_SUCCESS,
   USER_SIGN_IN_REQUEST,
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAIL
 } from "../../constants/userConstants";
 
 const signin = (email, password) => async (dispatch) => {
@@ -29,4 +32,28 @@ const signin = (email, password) => async (dispatch) => {
   }
 };
 
-export { signin };
+const register = (name, email, password) => async (dispatch) => {
+  dispatch({
+    type: USER_REGISTER_REQUEST,
+    payload: {
+      name,
+      email,
+      password
+    },
+  });
+  try {
+    const { data } = await axios.post(`/users/register`, { name, email, password });
+    dispatch({
+      type: USER_REGISTER_SUCCESS,
+      payload: data,
+    });
+    Cookie.set("userInfo", JSON.stringify(data));
+  } catch (error) {
+    dispatch({
+      type: USER_REGISTER_FAIL,
+      payload: error.message,
+    });
+  }
+};
+
+export { signin, register };

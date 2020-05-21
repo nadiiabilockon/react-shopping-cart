@@ -41,19 +41,20 @@ export default function SigninScreen(props) {
               <Form.Input
                 fluid
                 placeholder="Email"
-                name="email"
-                icon="email"
+                icon="mail"
                 iconPosition="left"
-                onChange={(e) => setEmail(e.target)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <Form.Input
                 fluid
                 type="password"
                 icon="lock"
                 iconPosition="left"
-                onChange={(e) => setPssword(e.target)}
+                value={password}
+                onChange={(e) => setPssword(e.target.value)}
               />
-              <Form.Button fluid size="large" content="Submit" />
+              <Form.Button fluid size="large" content="Sign In" />
             </Segment>
           </Form>
           {error && <Message error header="Action Forbidden" content={error} />}
