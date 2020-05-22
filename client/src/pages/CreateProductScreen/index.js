@@ -62,7 +62,7 @@ export default function CreateProductScreen() {
                                 value={countInStock}
                                 onChange={(e) => setCountInStock(e.target.value)}
                             />
-                            <Form.Button fluid size="large" content="Create" />
+                            <Form.Button fluid  size="large" content="Create" />
                         </Segment>
                     </Form>
                     {errorSave && <Message error content={errorSave} />}
