@@ -1,7 +1,30 @@
 var express = require("express");
 var router = express.Router();
+const multer = require('multer');
 import Product from "../models/productModel";
 import { data } from "../data";
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + file.originalname);
+  }
+});
+
+var upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+    }
+  }
+});
+
 
 router.get("/:id", function (req, res, next) {
   const productId = req.params.id;
@@ -18,7 +41,8 @@ router.get("/", async (req, res, next) => {
   res.send(products);
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", upload.array("productImages", 10), async (req, res, next) => {
+  console.log(req.files)
   const product = new Product({
     name: req.body.name,
     brand: req.body.brand,

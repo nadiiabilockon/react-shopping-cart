@@ -27,9 +27,26 @@ export default function CreateProductScreen() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const formData = new FormData();
 
-        dispatch(saveProduct({ name, brand, price, countInStock, images }));
+        if (images.length) {
+            Object.keys(images).forEach((key) => {
+                if (images[key] instanceof FileList) {
+                    formData.append("productImages", images[key][0], images[key][0].name);
+                } else {
+                    formData.append("productImages", images[key]);
+                }
+            });
+        }
+
+        formData.append("name", name);
+        formData.append("brand", brand);
+        formData.append("price", price);
+        formData.append("countInStock", countInStock);
+
+        dispatch(saveProduct(formData));
     };
+    
     return (
         <Container className="signin-wrapper text-center">
             <Grid textAlign="center" verticalAlign="middle">
@@ -62,6 +79,9 @@ export default function CreateProductScreen() {
                                 value={countInStock}
                                 onChange={(e) => setCountInStock(e.target.value)}
                             />
+                            <div className="form-group">
+                                <input type="file" name="productImages" className="form-control" onChange={e => setImages([...images, e.target.files])} multiple />
+                            </div>
                             <Form.Button fluid size="large" content="Create" />
                         </Segment>
                     </Form>
