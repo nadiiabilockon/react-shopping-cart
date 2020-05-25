@@ -2,35 +2,26 @@ var express = require("express");
 var router = express.Router();
 const multer = require('multer');
 import Product from "../models/productModel";
-import { data } from "../data";
+
+const date = new Date().toISOString().replace(/:/g, '-');
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, './uploads/');
+  destination: function (req, file, cb) {
+    cb(null, './server/public/images/')
   },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + file.originalname);
+  filename: function (req, file, cb) {
+    cb(null, date + '_' + file.originalname)
   }
-});
+})
 
-var upload = multer({
-  storage: storage,
-  fileFilter: (req, file, cb) => {
-    if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
-      cb(null, true);
-    } else {
-      cb(null, false);
-      return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
-    }
-  }
-});
+const upload = multer({ storage: storage });
 
-
-router.get("/:id", function (req, res, next) {
+router.get("/:id", async (req, res, next) => {
   const productId = req.params.id;
-  const product = data.products.find((prod) => prod._id === productId);
+  const product = await Product.findOne({ _id: productId });
+
   if (product) {
-    res.send(data.products.find((prod) => prod._id === productId));
+    res.send(product);
   } else {
     res.status(404).send({ msg: "Product Not Found." });
   }
@@ -41,14 +32,19 @@ router.get("/", async (req, res, next) => {
   res.send(products);
 });
 
-router.post("/", upload.array("productImages", 10), async (req, res, next) => {
-  console.log(req.files)
+router.post("/", upload.array('productImages'), async (req, res, next) => {
+  const reqFiles = [];
+
+  for (let i = 0; i < req.files.length; i++) {
+    reqFiles.push("/images/" + req.files[i].filename)
+  }
+
   const product = new Product({
     name: req.body.name,
     brand: req.body.brand,
     price: req.body.price,
     countInStock: req.body.countInStock,
-    images: req.body.images,
+    images: reqFiles
   });
 
   const newProduct = await product.save();
