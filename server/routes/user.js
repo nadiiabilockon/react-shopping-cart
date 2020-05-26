@@ -24,7 +24,7 @@ router.post("/signin", async (req, res, next) => {
   }
 });
 
-router.post("/register", async (req, res, next) => {
+router.post("/register", (req, res, next) => {
   try {
     const user = new User({
       name: req.body.name,
@@ -32,8 +32,10 @@ router.post("/register", async (req, res, next) => {
       password: req.body.password,
     });
 
-    const newUser = await user.save();
-    if (newUser) {
+    user.save(function (err, newUser) {
+      if (err) {
+        res.status(401).send({ msg: "Invalid User Data" });
+      }
       res.send({
         _id: newUser._id,
         name: newUser.name,
@@ -42,7 +44,7 @@ router.post("/register", async (req, res, next) => {
         isAdmin: newUser.isAdmin,
         token: getToken(newUser),
       });
-    }
+    })
   } catch (err) {
     res.status(401).send({ msg: "Invalid User Data" });
   }

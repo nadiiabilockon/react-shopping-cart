@@ -32,7 +32,7 @@ router.get("/", async (req, res, next) => {
   res.send(products);
 });
 
-router.post("/", upload.array('productImages'), async (req, res, next) => {
+router.post("/", upload.array('productImages'), (req, res, next) => {
   const reqFiles = [];
 
   for (let i = 0; i < req.files.length; i++) {
@@ -47,13 +47,12 @@ router.post("/", upload.array('productImages'), async (req, res, next) => {
     images: reqFiles
   });
 
-  const newProduct = await product.save();
-  if (newProduct) {
-    return res
-      .status(201)
-      .send({ msg: "New Product Created", data: newProduct });
-  }
-  return res.status(500).send({ msg: "Error in Creating product" });
+  product.save(function (err, product) {
+    if (err) {
+      return res.status(500).send({ msg: "Error in Creating product" });
+    }
+    return res.status(201).send({ msg: "New Product Created", data: product });
+  })
 });
 
 module.exports = router;

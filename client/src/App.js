@@ -6,7 +6,7 @@ import ProductScreen from "./pages/ProductScreen";
 import CartScreen from "./pages/CartScreen";
 import SigninScreen from "./pages/SigninScreen";
 import RegisterScreen from "./pages/RegisterScreen";
-import CreateProductScreen from "./pages/CreateProductScreen"
+import ProductsScreen from "./pages/ProductsScreen"
 
 import { useSelector } from "react-redux";
 
@@ -22,7 +22,7 @@ function App() {
             <Route path="/" exact={true} component={HomeScreen} />
             <Route path="/signin" component={SigninScreen} />
             <Route path="/register" component={RegisterScreen} />
-            <Route path="/product/create" component={CreateProductScreen} />
+            <Route path="/product/create" component={ProductsScreen} />
             <Route path="/product/:id" component={ProductScreen} />
             <Route path="/cart/:id?" component={CartScreen} />
           </Switch>
