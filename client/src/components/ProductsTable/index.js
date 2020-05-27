@@ -20,8 +20,8 @@ export default function ProductsTable(props) {
                         <Table.Cell>{product.name}</Table.Cell>
                         <Table.Cell>{product.brand}</Table.Cell>
                         <Table.Cell>{product.price}</Table.Cell>
-                        <Table.Cell>
-                            <Button>Edit</Button>
+                        <Table.Cell textAlign='center'>
+                            <Button onClick={() => props.openModal(product)}>Edit</Button>
                             <Button>Delete</Button>
                         </Table.Cell>
                     </Table.Row>))}

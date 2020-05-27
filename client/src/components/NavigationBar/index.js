@@ -30,7 +30,7 @@ export class NavigationBar extends Component {
 
         const leftItems = [
             { as: Link, content: "Shop", key: "shop", to: '/' },
-            { as: Link, content: "My Boyfriends Back", key: "boyfriendsBack", to: '/' }
+            { as: Link, content: "Products", key: "products", to: '/products' }
         ];
 
         const rightItems = [

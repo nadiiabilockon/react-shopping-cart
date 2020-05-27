@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Button,
     Grid,
@@ -10,7 +10,15 @@ import {
 } from "semantic-ui-react";
 import "./index.less";
 
-export default function CreateProductModal(props) {
+export default function CreateProductModal({
+    product,
+    modalOpen,
+    loadingSave,
+    errorSave,
+    handleSubmit,
+    handleClose,
+}) {
+    const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [brand, setBrand] = useState("");
     const [price, setPrice] = useState("");
@@ -25,16 +33,38 @@ export default function CreateProductModal(props) {
         }
     };
 
+    useEffect(() => {
+        if (!modalOpen) {
+            setPreviews([]);
+            setId('')
+            setName('')
+            setBrand('')
+            setPrice('')
+            setCountInStock('')
+            setImages([])
+        }
+        if (product._id) {
+            setId(product._id)
+            setName(product.name)
+            setBrand(product.brand)
+            setPrice(product.price)
+            setCountInStock(product.countInStock)
+            setImages(product.images)
+            setPreviews(product.images);
+        }
+    }, [modalOpen, product]);
+
     return (
-        <Modal open={props.modalOpen} size="small" className="modal">
+        <Modal open={modalOpen} size="small" className="modal">
             <Grid textAlign="center" verticalAlign="middle">
                 <Grid.Column>
-                    <h3>Create new product</h3>
+                    <h3>Product</h3>
                     <Form
                         size="large"
-                        loading={props.loadingSave}
+                        loading={loadingSave}
                         onSubmit={(e) =>
-                            props.handleSubmit(e, {
+                            handleSubmit(e, {
+                                id,
                                 name,
                                 brand,
                                 price,
@@ -74,8 +104,8 @@ export default function CreateProductModal(props) {
                         <div className="file-upload">
                             <label>
                                 <Icon name="cloud upload" />
-                            Upload images
-                            <input
+                                Upload images
+                                <input
                                     type="file"
                                     name="productImages"
                                     onChange={uploadMultipleFiles}
@@ -89,13 +119,11 @@ export default function CreateProductModal(props) {
                             ))}
                         </Image.Group>
                         <Modal.Actions>
-                            <Button
-                                content="Cancel"
-                                onClick={props.handleClose} />
-                            <Button content="Create" />
+                            <Button content="Cancel" onClick={handleClose} />
+                            <Button content={product._id ? "Update" : "Create"} />
                         </Modal.Actions>
                     </Form>
-                    {props.errorSave && <Message error content={props.errorSave} />}
+                    {errorSave && <Message error content={errorSave} />}
                 </Grid.Column>
             </Grid>
         </Modal>

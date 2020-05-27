@@ -45,6 +45,7 @@ build/Release
 
 # Dependency directories
 server/node_modules/
+server/public/images/
 client/node_modules/
 jspm_packages/
 

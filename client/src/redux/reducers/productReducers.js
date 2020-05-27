@@ -8,7 +8,8 @@ function productListReducer(state = { products: [] }, action) {
     switch (action.type) {
         case PRODUCT_LIST_REQUEST:
             return {
-                loading: true
+                loading: true,
+                products: []
             }
         case PRODUCT_LIST_SUCCESS:
             return {

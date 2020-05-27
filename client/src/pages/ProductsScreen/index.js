@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-    Container,
-    Button
-} from "semantic-ui-react";
+import { Container, Button, Dimmer, Loader } from "semantic-ui-react";
 import { saveProduct, listProducts } from "../../redux/actions/productAcrions";
-import CreateProductModal from '../../components/CreateProductModal'
-import ProductsTable from '../../components/ProductsTable'
+import CreateProductModal from "../../components/CreateProductModal";
+import ProductsTable from "../../components/ProductsTable";
 
 export default function ProductsScreen() {
     const [modalOpen, setModalOpen] = useState(false);
+    const [product, setProduct] = useState({});
 
-    const productList = useSelector(state => state.productList);
+    const productList = useSelector((state) => state.productList);
     const { loading, products, error } = productList;
 
     const productSave = useSelector((state) => state.productSave);
@@ -25,15 +23,20 @@ export default function ProductsScreen() {
 
     useEffect(() => {
         if (successSave) {
-            setModalOpen(false)
+            setModalOpen(false);
         }
         dispatch(listProducts());
     }, [successSave]);
 
+    const openModal = (product) => {
+        setProduct(product);
+        setModalOpen(true);
+    };
+
     const handleSubmit = (e, data) => {
         e.preventDefault();
 
-        const { name, brand, price, countInStock, images } = data;
+        const { id, name, brand, price, countInStock, images } = data;
         const formData = new FormData();
 
         if (images.length) {
@@ -45,7 +48,7 @@ export default function ProductsScreen() {
                 }
             });
         }
-
+        formData.append("_id", id);
         formData.append("name", name);
         formData.append("brand", brand);
         formData.append("price", price);
@@ -54,25 +57,35 @@ export default function ProductsScreen() {
         dispatch(saveProduct(formData));
     };
 
-    return (
-        <Container className="products-wrapper">
-            <div>
-                <Button
-                    size='tiny'
-                    content='Create new product'
-                    onClick={() => setModalOpen(true)}
-                />
-                <CreateProductModal
-                    modalOpen={modalOpen}
-                    handleClose={() => setModalOpen(false)}
-                    errorSave={errorSave}
-                    successSave={successSave}
-                    handleSubmit={handleSubmit}
-                    loadingSave={loadingSave}
-                />
-            </div>
-            <h3>Products</h3>
-            <ProductsTable products={products}/>
-        </Container>
-    );
+    return loading ? (
+        <Dimmer active inverted>
+            <Loader size="large"></Loader>
+        </Dimmer>
+    ) : error ? (
+        <div>{error}</div>
+    ) : (
+            <Container className="products-wrapper">
+                <div>
+                    <Button
+                        size="tiny"
+                        content="Create new product"
+                        onClick={() => openModal({})}
+                    />
+                    <CreateProductModal
+                        product={product}
+                        modalOpen={modalOpen}
+                        handleClose={() => {
+                            setModalOpen(false);
+                            setProduct({});
+                        }}
+                        errorSave={errorSave}
+                        successSave={successSave}
+                        handleSubmit={handleSubmit}
+                        loadingSave={loadingSave}
+                    />
+                </div>
+                <h3>Products</h3>
+                <ProductsTable openModal={openModal} products={products} />)
+            </Container>
+        );
 }

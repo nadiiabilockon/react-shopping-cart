@@ -55,4 +55,32 @@ router.post("/", upload.array('productImages'), (req, res, next) => {
   })
 });
 
+router.put("/:id", upload.array('productImages'), async (req, res, next) => {
+  const productId = req.params.id;
+  const reqFiles = [];
+
+  for (let i = 0; i < req.files.length; i++) {
+    reqFiles.push("/images/" + req.files[i].filename)
+  }
+
+  const product = await Product.findOne({ _id: productId })
+
+  if (product) {
+    product.name = req.body.name;
+    product.brand = req.body.brand;
+    product.price = req.body.price;
+    product.countInStock = req.body.countInStock;
+    product.images = [...product.images, ...reqFiles];
+
+    product.save(function (err, product) {
+      if (err) {
+        return res.status(500).send({ msg: "Error in Creating product" });
+      }
+      return res.status(201).send({ msg: "New Product Created", data: product });
+    })
+  } else {
+    res.status(404).send({ msg: "Product Not Found." });
+  }
+});
+
 module.exports = router;
