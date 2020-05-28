@@ -8,6 +8,9 @@ import {
     PRODUCT_SAVE_REQUEST,
     PRODUCT_SAVE_SUCCESS,
     PRODUCT_SAVE_FAIL,
+    PRODUCT_DELETE_REQUEST,
+    PRODUCT_DELETE_SUCCESS,
+    PRODUCT_DELETE_FAIL
 } from "../../constants/productConstants";
 import axios from "axios";
 
@@ -37,7 +40,7 @@ const saveProduct = (product) => async (dispatch, getState) => {
         const { userSignin: { userInfo } } = getState();
         const productId = product.get('_id');
 
-        if (!productId){
+        if (!productId) {
             const { data } = await axios.post(`/products`, product, {
                 headers: {
                     Authorization: "Bearer " + userInfo.token,
@@ -58,4 +61,19 @@ const saveProduct = (product) => async (dispatch, getState) => {
     }
 };
 
-export { listProducts, detailsProduct, saveProduct };
+const deleteProduct = (productId) => async (dispatch, getState) => {
+    try {
+        const { userSignin: { userInfo } } = getState();
+        dispatch({ type: PRODUCT_DELETE_REQUEST, payload: productId });
+        const { data } = await axios.delete(`/products/${productId}`, {
+            headers: {
+                Authorization: "Bearer " + userInfo.token,
+            },
+        });;
+        dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: data, success: true });
+    } catch (error) {
+        dispatch({ type: PRODUCT_DELETE_FAIL, payload: error.message });
+    }
+};
+
+export { listProducts, detailsProduct, saveProduct, deleteProduct };

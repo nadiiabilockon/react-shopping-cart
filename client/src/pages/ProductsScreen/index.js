@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Button, Dimmer, Loader } from "semantic-ui-react";
-import { saveProduct, listProducts } from "../../redux/actions/productAcrions";
+import {
+    saveProduct,
+    listProducts,
+    deleteProduct,
+} from "../../redux/actions/productAcrions";
 import CreateProductModal from "../../components/CreateProductModal";
 import ProductsTable from "../../components/ProductsTable";
 
@@ -19,6 +23,13 @@ export default function ProductsScreen() {
         error: errorSave,
     } = productSave;
 
+    const productDelete = useSelector((state) => state.productDelete);
+    const {
+        loading: loadingDelete,
+        success: successDelete,
+        error: errorDelete,
+    } = productDelete;
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -26,11 +37,15 @@ export default function ProductsScreen() {
             setModalOpen(false);
         }
         dispatch(listProducts());
-    }, [successSave]);
+    }, [successSave, successDelete]);
 
     const openModal = (product) => {
         setProduct(product);
         setModalOpen(true);
+    };
+
+    const deleteHandler = (productId) => {
+        dispatch(deleteProduct(productId));
     };
 
     const handleSubmit = (e, data) => {
@@ -85,7 +100,12 @@ export default function ProductsScreen() {
                     />
                 </div>
                 <h3>Products</h3>
-                <ProductsTable openModal={openModal} products={products} />)
+                <ProductsTable
+                    deleteHandler={deleteHandler}
+                    openModal={openModal}
+                    products={products}
+                    loadingDelete={loadingDelete}
+                />
             </Container>
         );
 }

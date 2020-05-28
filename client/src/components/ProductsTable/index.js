@@ -22,7 +22,7 @@ export default function ProductsTable(props) {
                         <Table.Cell>{product.price}</Table.Cell>
                         <Table.Cell textAlign='center'>
                             <Button onClick={() => props.openModal(product)}>Edit</Button>
-                            <Button>Delete</Button>
+                            <Button disabled={props.loadingDelete} onClick={() => props.deleteHandler(product._id)}>Delete</Button>
                         </Table.Cell>
                     </Table.Row>))}
             </Table.Body>

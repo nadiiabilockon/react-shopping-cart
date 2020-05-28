@@ -1,7 +1,9 @@
-var express = require("express");
-var router = express.Router();
-const multer = require('multer');
+import express from "express";
+import multer from "multer";
+import fs from "fs";
 import Product from "../models/productModel";
+
+const router = express.Router();
 
 const date = new Date().toISOString().replace(/:/g, '-');
 
@@ -80,6 +82,23 @@ router.put("/:id", upload.array('productImages'), async (req, res, next) => {
     })
   } else {
     res.status(404).send({ msg: "Product Not Found." });
+  }
+});
+
+router.delete("/:id", async (req, res, next) => {
+  const deletedProduct = await Product.findById(req.params.id);
+
+  if (deletedProduct) {
+    deletedProduct.images.forEach(img => {
+      const filePath = `./server/public/${img}`;
+      fs.unlink(filePath, (err) => {
+        if (err) throw err;
+      });
+    });
+    await deletedProduct.remove();
+    res.send({ message: "Product Deleted" });
+  } else {
+    res.send("Error in Deletion.");
   }
 });
 
