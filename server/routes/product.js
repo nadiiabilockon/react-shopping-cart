@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 import fs from "fs";
 import Product from "../models/productModel";
+import { isAuth, isAdmin } from "../util";
 
 const router = express.Router();
 
@@ -34,7 +35,7 @@ router.get("/", async (req, res, next) => {
   res.send(products);
 });
 
-router.post("/", upload.array('productImages'), (req, res, next) => {
+router.post("/", isAuth, isAdmin, upload.array('productImages'), (req, res, next) => {
   const reqFiles = [];
 
   for (let i = 0; i < req.files.length; i++) {
@@ -57,7 +58,7 @@ router.post("/", upload.array('productImages'), (req, res, next) => {
   })
 });
 
-router.put("/:id", upload.array('productImages'), async (req, res, next) => {
+router.put("/:id", isAuth, isAdmin, upload.array('productImages'), async (req, res, next) => {
   const productId = req.params.id;
   const reqFiles = [];
 
@@ -85,7 +86,7 @@ router.put("/:id", upload.array('productImages'), async (req, res, next) => {
   }
 });
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", isAuth, isAdmin, async (req, res, next) => {
   const deletedProduct = await Product.findById(req.params.id);
 
   if (deletedProduct) {

@@ -11,7 +11,7 @@ const getToken = (user) => {
     },
     config.JWT_SECRET,
     {
-      expiresIn: "48h"
+      expiresIn: "300"
     }
   );
 };
@@ -24,11 +24,12 @@ const isAuth = (req, res, next) => {
     jwt.verify(onlyToken, config.JWT_SECRET, (err, decode) => {
       if (err) return res.status(401).send({ msg: "Invalid Token" });
 
-      req.user = token;
+      req.user = decode;
       return next();
     });
+  } else {
+    return res.status(401).send({ msg: "Token is not supplied" });
   }
-  return res.status(401).send({ msg: "Token is not supplied" });
 };
 
 const isAdmin = (req, res, next) => {

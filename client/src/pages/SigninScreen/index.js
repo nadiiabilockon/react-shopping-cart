@@ -17,11 +17,13 @@ export default function SigninScreen(props) {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
 
+  const redirect = props.location.search ? props.location.search.split('=')[1] : '/'
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (userInfo) {
-      props.history.push("/");
+      props.history.push(redirect);
     }
   }, [userInfo]);
 
@@ -61,7 +63,8 @@ export default function SigninScreen(props) {
           <Message>
             <p>New to Hebe?</p>
             <p>
-              <Link to="/register">Create account</Link>
+              {/* <Link to={redirect === "/" ? "register" : "register?redirect=" + redirect}>Create your account</Link> */}
+              <Link to={redirect === '/' ? 'register' : `register?redirect=${redirect}` }>Create account</Link>
             </p>
           </Message>
         </Grid.Column>

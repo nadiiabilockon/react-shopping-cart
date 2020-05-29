@@ -15,11 +15,13 @@ export default function SigninScreen(props) {
 
   const { userInfo, loading, error } = userRegister;
 
+  const redirect = props.location.search ? props.location.search.split('=')[1] : '/'
+
   const dispatch = useDispatch();
 
     useEffect(() => {
       if (userInfo) {
-        props.history.push("/");
+        props.history.push(redirect);
       }
     }, [userInfo]);
 
@@ -76,7 +78,7 @@ export default function SigninScreen(props) {
           <Message>
             <p> Already have an account?</p>
             <p>
-              <Link to="/signin">Sign In</Link>
+              <Link to={redirect === '/' ? '/signin' : `/signin?redirect=${redirect}`}>Sign In</Link>
             </p>
           </Message>
         </Grid.Column>
