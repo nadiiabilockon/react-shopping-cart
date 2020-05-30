@@ -35,7 +35,7 @@ export default function SigninScreen(props) {
   };
 
   return (
-    <Container className="signin-wrapper text-center">
+    <Container className="wrapper text-center">
       <Grid textAlign="center" verticalAlign="middle">
         <Grid.Column style={{ maxWidth: 450 }}>
           <h3>Create Account</h3>

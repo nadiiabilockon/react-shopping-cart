@@ -33,7 +33,7 @@ export default function SigninScreen(props) {
     dispatch(signin(email, password));
   };
   return (
-    <Container className="signin-wrapper text-center">
+    <Container className="wrapper text-center">
       <Grid textAlign="center" verticalAlign="middle">
         <Grid.Column style={{ maxWidth: 450 }}>
           <h3>Login</h3>
@@ -63,7 +63,6 @@ export default function SigninScreen(props) {
           <Message>
             <p>New to Hebe?</p>
             <p>
-              {/* <Link to={redirect === "/" ? "register" : "register?redirect=" + redirect}>Create your account</Link> */}
               <Link to={redirect === '/' ? 'register' : `register?redirect=${redirect}` }>Create account</Link>
             </p>
           </Message>
