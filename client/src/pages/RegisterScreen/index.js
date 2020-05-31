@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Grid, Container, Form, Segment, Message } from "semantic-ui-react";
+import { Grid, Container, Form, Message } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { register } from "../../redux/actions/userActions";
 
@@ -40,7 +40,6 @@ export default function SigninScreen(props) {
         <Grid.Column style={{ maxWidth: 450 }}>
           <h3>Create Account</h3>
           <Form size="large" loading={loading} onSubmit={handleSubmit}>
-            <Segment stacked>
               <Form.Input
                 fluid
                 placeholder="Name"
@@ -71,8 +70,7 @@ export default function SigninScreen(props) {
                 value={rePassword}
                 onChange={(e) => setRePassword(e.target.value)}
               />
-              <Form.Button fluid size="large" content="Create" />
-            </Segment>
+              <Form.Button color='black' fluid size="large" content="Create" />
           </Form>
           {(error || passwErr) && <Message error content={error || passwErr} />}
           <Message>

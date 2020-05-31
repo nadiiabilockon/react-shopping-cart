@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Grid, Image } from "semantic-ui-react";
 import QuantityInput from "../QuantityInput";
 import { useDispatch } from "react-redux";
-import"./index.less"
+import "./index.less"
 
 export default function CartItem({ item, addToCart, removeFromCartHandler }) {
   const dispatch = useDispatch();
@@ -45,19 +45,19 @@ export default function CartItem({ item, addToCart, removeFromCartHandler }) {
   );
 }
 
-export  function CartItemMini({ item }) {
+export function CartItemMini({ item }) {
 
   return (
     <li>
       <Grid>
-        <Grid.Column width={2}>
+        <Grid.Column width={3}>
           <Image src={item.images[0]} alt="product" />
         </Grid.Column>
         <Grid.Column width={5} textAlign="left">
-          <h3> {item.name}</h3>
+          <h3>{item.name}</h3>
           <p>{item.brand}</p>
         </Grid.Column>
-        <Grid.Column width={9} textAlign="right">
+        <Grid.Column width={8} textAlign="right">
           <span className="price">${(item.price * item.qty).toFixed(2)}</span>
         </Grid.Column>
       </Grid>

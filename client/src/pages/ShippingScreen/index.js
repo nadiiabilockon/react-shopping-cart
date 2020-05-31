@@ -14,7 +14,7 @@ export default function ShippingScreen(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(saveShipping({address, city, postalCode, country}));
+        dispatch(saveShipping({ address, city, postalCode, country }));
         props.history.push('payment');
     }
 
@@ -53,7 +53,11 @@ export default function ShippingScreen(props) {
                             required
                             onChange={(e) => setCountry(e.target.value)}
                         />
-                        <Form.Button fluid size="large" content="Continue" />
+                        <Form.Button
+                            color='black'
+                            fluid
+                            size="large"
+                            content="Continue" />
                     </Form>
                 </Grid.Column>
             </Grid>

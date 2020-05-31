@@ -17,27 +17,30 @@ export default function PaymentScreen(props) {
 
     const handleRadio = (e) => {
         setPaymentMethod(e.target.value)
-}
+    }
 
-return (
-    <Container className="wrapper text-center">
-        <CheckoutSteps step1 step2 step3 />
-        <Grid textAlign="center" verticalAlign="middle">
-            <Grid.Column style={{ maxWidth: 450 }}>
-                <h3>Payment</h3>
-                <Form size="large" onSubmit={handleSubmit}>
-                    <Form.Field>
-                        <Radio
-                            id="paymentMethod"
-                            value='paypal'
-                            onChange={handleRadio}
-                        />
-                        <label className="paymentLabel" htmlFor="paymentMethod">PayPal</label>
-                    </Form.Field>
-                    <Form.Button fluid size="large" content="Continue" />
-                </Form>
-            </Grid.Column>
-        </Grid>
-    </Container>
-)
+    return (
+        <Container className="wrapper">
+            <CheckoutSteps step1 step2 step3 />
+            <Grid textAlign="center" verticalAlign="middle">
+                <Grid.Column style={{ maxWidth: 450 }}>
+                    <h3>Payment</h3>
+                    <Form size="large" onSubmit={handleSubmit}>
+                        <Form.Field>
+                            <Radio
+                                id="paymentMethod"
+                                value='paypal'
+                                onChange={handleRadio}
+                            />
+                            <label className="paymentLabel" htmlFor="paymentMethod">PayPal</label>
+                        </Form.Field>
+                        <Form.Button
+                            color='black'
+                            fluid size="large"
+                            content="Continue" />
+                    </Form>
+                </Grid.Column>
+            </Grid>
+        </Container>
+    )
 }

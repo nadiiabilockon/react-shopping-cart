@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Grid,
-  Container,
-  Form,
-  Segment,
-  Message,
-} from "semantic-ui-react";
+import { Grid, Container, Form, Message } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { signin } from "../../redux/actions/userActions";
 
@@ -17,7 +11,9 @@ export default function SigninScreen(props) {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
 
-  const redirect = props.location.search ? props.location.search.split('=')[1] : '/'
+  const redirect = props.location.search
+    ? props.location.search.split("=")[1]
+    : "/";
 
   const dispatch = useDispatch();
 
@@ -39,7 +35,6 @@ export default function SigninScreen(props) {
           <h3>Login</h3>
 
           <Form size="large" loading={loading} onSubmit={handleSubmit}>
-            <Segment stacked>
               <Form.Input
                 fluid
                 placeholder="Email"
@@ -56,14 +51,21 @@ export default function SigninScreen(props) {
                 value={password}
                 onChange={(e) => setPssword(e.target.value)}
               />
-              <Form.Button fluid size="large" content="Sign In" />
-            </Segment>
+              <Form.Button color="black" fluid size="large" content="Sign In" />
           </Form>
           {error && <Message error header="Action Forbidden" content={error} />}
           <Message>
             <p>New to Hebe?</p>
             <p>
-              <Link to={redirect === '/' ? 'register' : `register?redirect=${redirect}` }>Create account</Link>
+              <Link
+                to={
+                  redirect === "/"
+                    ? "register"
+                    : `register?redirect=${redirect}`
+                }
+              >
+                Create account
+              </Link>
             </p>
           </Message>
         </Grid.Column>
