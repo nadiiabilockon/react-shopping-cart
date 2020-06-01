@@ -9,6 +9,7 @@ import cors from 'cors';
 import indexRouter from "./routes/index";
 import productRouter from "./routes/product";
 import userRouter from "./routes/user";
+import orderRouter from "./routes/order";
 
 import dotenv from "dotenv";
 import config from "./config";
@@ -46,6 +47,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/products", productRouter);
 app.use("/users", userRouter);
+app.use("/orders", orderRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

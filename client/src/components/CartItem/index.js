@@ -51,7 +51,10 @@ export function CartItemMini({ item }) {
     <li>
       <Grid>
         <Grid.Column width={3}>
-          <Image src={item.images[0]} alt="product" />
+          <div className="product-thumbnail ">
+           <Image src={item.images[0]} alt="product" />
+            <span className="product-thumbnail__quantity">{item.qty}</span>
+          </div>
         </Grid.Column>
         <Grid.Column width={5} textAlign="left">
           <h3>{item.name}</h3>

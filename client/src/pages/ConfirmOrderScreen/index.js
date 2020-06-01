@@ -1,14 +1,17 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Button, Grid, Segment } from "semantic-ui-react";
+import { Container, Button, Grid, Segment, Message } from "semantic-ui-react";
 import { CartItemMini } from "../../components/CartItem";
 import CheckoutSteps from "../../components/CheckoutSteps";
 import OrderList from "../../components/OrderList";
+import { createOrder } from "../../redux/actions/orderActions";
 
 export default function ConfirmOrderScreen(props) {
   const cart = useSelector((state) => state.cart);
 
   const { cartItems, shipping, payment } = cart;
+  const orderCreate = useSelector(state => state.orderCreate);
+  const { loading, success, error, order } = orderCreate;
 
   const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
   const shippingPrice = itemsPrice > 100 ? 0 : 10;
@@ -24,7 +27,12 @@ export default function ConfirmOrderScreen(props) {
 
   const dispatch = useDispatch();
 
-  const confirmHandler = () => { };
+  const confirmHandler = () => {
+    dispatch(createOrder({
+      orderItems: cartItems, shipping, payment, itemsPrice, shippingPrice,
+      taxPrice, totalPrice
+    }));
+  };
 
   useEffect(() => {
     if (!shipping.address) {
@@ -32,7 +40,10 @@ export default function ConfirmOrderScreen(props) {
     } else if (!payment.paymentMethod) {
       props.history.push("/payment");
     }
-  }, []);
+    if (success) {
+      props.history.push("/order/" + order._id);
+    }
+  }, [success]);
 
   return (
     <Container className="wrapper">
@@ -40,13 +51,17 @@ export default function ConfirmOrderScreen(props) {
       <Grid container>
         <Grid.Row stretched>
           <Grid.Column width={10}>
-            <Segment padded="very" placeholder>
+            <Segment>
               <h3>Shipping</h3>
               <p>
                 {`${cart.shipping.address}, ${cart.shipping.city}, ${cart.shipping.postalCode}, ${cart.shipping.country}`}
               </p>
+            </Segment>
+            <Segment >
               <h3>Payment</h3>
               <p>Payment Method: {cart.payment.paymentMethod}</p>
+            </Segment>
+            <Segment >
               <h3 className="text-center">Your Cart</h3>
               <div className="cart-list">
                 <ul className="cart-list-container">
@@ -62,7 +77,7 @@ export default function ConfirmOrderScreen(props) {
             </Segment>
           </Grid.Column>
           <Grid.Column width={6}>
-            <Segment padded="very">
+            <Segment padded="very" placeholder>
               <h3>Order Summary</h3>
               <OrderList orderDetails={orderDetails} />
               <Button
@@ -71,9 +86,11 @@ export default function ConfirmOrderScreen(props) {
                 color="black"
                 size="large"
                 fluid
+                loading={loading}
               >
                 Confirm Order
               </Button>
+              {error && <Message content={error} />}
             </Segment>
           </Grid.Column>
         </Grid.Row>

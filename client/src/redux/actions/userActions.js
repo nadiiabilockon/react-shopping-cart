@@ -51,7 +51,7 @@ const register = (name, email, password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
-      payload: error.message,
+      payload: error.response.data.msg || error.message,
     });
   }
 };

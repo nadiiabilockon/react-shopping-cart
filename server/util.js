@@ -9,10 +9,7 @@ const getToken = (user) => {
       email: user.email,
       isAdmin: user.isAdmin
     },
-    config.JWT_SECRET,
-    {
-      expiresIn: "300"
-    }
+    config.JWT_SECRET
   );
 };
 

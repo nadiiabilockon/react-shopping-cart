@@ -11,12 +11,12 @@ import ProductsScreen from "./pages/ProductsScreen"
 import ShippingScreen from "./pages/ShippingScreen"
 import PaymentScreen from "./pages/PaymentScreen"
 import ConfirmOrderScreen from "./pages/ConfirmOrderScreen";
-
+import OrderScreen from './pages/OrderScreen'
 
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
-
+  
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <NavigationBar>
@@ -28,6 +28,7 @@ function App() {
             <Route path="/shipping" component={ShippingScreen} />
             <Route path="/payment" component={PaymentScreen} />
             <Route path="/confirmorder" component={ConfirmOrderScreen} />
+            <Route path="/order/:id" component={OrderScreen} />
             <Route path="/products" component={ProductsScreen} />
             <Route path="/product/:id" component={ProductScreen} />
             <Route path="/cart/:id?" component={CartScreen} />

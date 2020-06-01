@@ -35,15 +35,16 @@ router.post("/register", (req, res, next) => {
     user.save(function (err, newUser) {
       if (err) {
         res.status(401).send({ msg: "Invalid User Data" });
+      } else {
+        res.send({
+          _id: newUser._id,
+          name: newUser.name,
+          email: newUser.email,
+          password: newUser.password,
+          isAdmin: newUser.isAdmin,
+          token: getToken(newUser),
+        });
       }
-      res.send({
-        _id: newUser._id,
-        name: newUser.name,
-        email: newUser.email,
-        password: newUser.password,
-        isAdmin: newUser.isAdmin,
-        token: getToken(newUser),
-      });
     })
   } catch (err) {
     res.status(401).send({ msg: "Invalid User Data" });
