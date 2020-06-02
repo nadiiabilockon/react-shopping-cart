@@ -4,6 +4,11 @@ import { isAuth, isAdmin } from '../util';
 
 const router = express.Router();
 
+router.get("/", isAuth, isAdmin, async (req, res) => {
+    const orders = await Order.find({}).populate('user');
+    res.send(orders);
+});
+
 router.post("/", isAuth, async (req, res) => {
     const newOrder = new Order({
         orderItems: req.body.orderItems,

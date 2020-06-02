@@ -71,6 +71,10 @@ const orderSchema = new mongoose.Schema(
         },
         totalPrice: {
             type: Number
+        },
+        isPaid: {
+            type: Boolean,
+            default: false
         }
     },
     {

@@ -15,7 +15,7 @@ export default function ConfirmOrderScreen(props) {
 
   const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
   const shippingPrice = itemsPrice > 100 ? 0 : 10;
-  const taxPrice = 0.15 * itemsPrice;
+  const taxPrice = (0.15 * itemsPrice).toFixed(2);
   const totalPrice = itemsPrice + shippingPrice + taxPrice;
 
   const orderDetails = [
@@ -41,7 +41,7 @@ export default function ConfirmOrderScreen(props) {
       props.history.push("/payment");
     }
     if (success) {
-      props.history.push("/order/" + order._id);
+      props.history.push("/orders/" + order._id);
     }
   }, [success]);
 
