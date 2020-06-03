@@ -29,7 +29,7 @@ export const NavBarMobile = ({
       onClick={onPusherClick}
       style={{ minHeight: "100vh" }}
     >
-      <Menu inverted>
+      <Menu>
         <Menu.Item>
           <Link to="/">hebe.</Link>
         </Menu.Item>
