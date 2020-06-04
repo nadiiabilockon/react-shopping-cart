@@ -1,19 +1,27 @@
 import React from "react";
-import { Menu } from "semantic-ui-react";
+import { Menu, Container } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
-export const NavBarDesktop = ({ leftItems, rightItems }) => (
-  <Menu>
-    <Menu.Item>
-      <Link to="/">hebe.</Link>
-    </Menu.Item>
-    {leftItems.map((item) => (
-      <Menu.Item {...item} />
-    ))}
-    <Menu.Menu position="right">
-      {rightItems.map((item) => (
-        <Menu.Item {...item} />
-      ))}
-    </Menu.Menu>
-  </Menu>
+export const NavBarDesktop = ({ items }) => (
+  <div className="desktop-nav">
+    <Menu text>
+      <Container>
+        <Menu.Item className="nav-logo">
+          <Link to="/">hebe.</Link>
+        </Menu.Item>
+        <Menu.Menu position='right'>
+          {items.map((item, i) => (
+            <Menu.Item key={i}>
+              <Link to={item.to}>{item.content}
+              </Link>
+            </Menu.Item>
+          ))}
+          <Menu.Item>
+            <Link to="/cart"> Cart
+        </Link>
+          </Menu.Item>
+        </Menu.Menu>
+      </Container>
+    </Menu>
+  </div>
 );

@@ -4,8 +4,8 @@ import ProductItem from "./ProductItem"
 
 export default function ProductsList({ products }) {
     return (
-        <Grid columns={3} >
-            <Grid.Row>
+        <Grid container>
+            <Grid.Row columns={3}>
                 {products.map(product =>
                     <ProductItem
                         key={product._id}

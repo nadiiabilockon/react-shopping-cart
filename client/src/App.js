@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { NavigationBar } from "./components/NavigationBar";
@@ -16,7 +16,7 @@ import OrdersScreen from "./pages/OrdersScreen";
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
-
+  const contextRef = useRef()
   const userRole = userInfo.isAdmin === "true" ? "admin" : "user";
 
   const ProtectedRoute = ({
@@ -43,8 +43,9 @@ function App() {
 
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <NavigationBar/>
-        <main className="main-content">
+      <div ref={contextRef}>
+        <NavigationBar contextRef={contextRef} userInfo={userInfo} />
+        <main className="main-content" >
           <Switch>
             <Route path="/" exact={true} component={HomeScreen} />
             <Route path="/signin" component={SigninScreen} />
@@ -63,6 +64,7 @@ function App() {
             <Route path="/cart/:id?" component={CartScreen} />
           </Switch>
         </main>
+      </div>
     </BrowserRouter>
   );
 }
