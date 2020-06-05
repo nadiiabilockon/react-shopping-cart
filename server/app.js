@@ -5,27 +5,18 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import bodyParser from "body-parser";
 import cors from 'cors';
+import dotenv from "dotenv";
 
 import indexRouter from "./routes/index";
 import productRouter from "./routes/product";
 import userRouter from "./routes/user";
 import orderRouter from "./routes/order";
 
-import dotenv from "dotenv";
-import config from "./config";
-import mongoose from "mongoose";
+const InitiateMongoServer = require("./config/db");
 
 dotenv.config();
 
-const mongodbUrl = config.MONGODB_URL;
-
-mongoose
-  .connect(mongodbUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true
-  })
-  .catch((error) => console.log(error.reason));
+InitiateMongoServer();
 
 var app = express();
 

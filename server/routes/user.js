@@ -24,30 +24,38 @@ router.post("/signin", async (req, res, next) => {
   }
 });
 
-router.post("/register", (req, res, next) => {
+router.post("/register", async (req, res, next) => {
   try {
-    const user = new User({
+    let user = await User.findOne({
+      email: req.body.email
+    });
+    
+    if (user) {
+      return res.status(400).json({
+        msg: "User Already Exists"
+      });
+    }
+
+    user = new User({
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
     });
 
-    user.save(function (err, newUser) {
-      if (err) {
-        res.status(401).send({ msg: "Invalid User Data" });
-      } else {
-        res.send({
-          _id: newUser._id,
-          name: newUser.name,
-          email: newUser.email,
-          password: newUser.password,
-          isAdmin: newUser.isAdmin,
-          token: getToken(newUser),
-        });
-      }
-    })
+    const newUser = await user.save();
+    if (newUser) {
+      res.send({
+        _id: newUser._id,
+        name: newUser.name,
+        email: newUser.email,
+        password: newUser.password,
+        isAdmin: newUser.isAdmin,
+        token: getToken(newUser),
+      });
+    }
   } catch (err) {
-    res.status(401).send({ msg: "Invalid User Data" });
+    console.log(err.message);
+    res.status(500).send("Error in Saving");
   }
 });
 

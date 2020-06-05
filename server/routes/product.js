@@ -35,7 +35,7 @@ router.get("/", async (req, res, next) => {
   res.send(products);
 });
 
-router.post("/", isAuth, isAdmin, upload.array('productImages'), (req, res, next) => {
+router.post("/", isAuth, isAdmin, upload.array('productImages'), async (req, res, next) => {
   const reqFiles = [];
 
   for (let i = 0; i < req.files.length; i++) {
@@ -50,12 +50,13 @@ router.post("/", isAuth, isAdmin, upload.array('productImages'), (req, res, next
     images: reqFiles
   });
 
-  product.save(function (err, product) {
-    if (err) {
-      return res.status(500).send({ msg: "Error in Creating product" });
-    }
-    return res.status(201).send({ msg: "New Product Created", data: product });
-  })
+  const newProduct = await product.save();
+
+  if (newProduct) {
+    return res.status(201).send({ msg: "New Product Created", data: newProduct });
+  } else {
+    return res.status(500).send({ msg: "Error in Creating product" });
+  }
 });
 
 router.put("/:id", isAuth, isAdmin, upload.array('productImages'), async (req, res, next) => {
@@ -75,14 +76,13 @@ router.put("/:id", isAuth, isAdmin, upload.array('productImages'), async (req, r
     product.countInStock = req.body.countInStock;
     product.images = [...product.images, ...reqFiles];
 
-    product.save(function (err, product) {
-      if (err) {
-        return res.status(500).send({ msg: "Error in Creating product" });
-      }
-      return res.status(201).send({ msg: "New Product Created", data: product });
-    })
+    const updatedProduct = await product.save();
+
+    if (updatedProduct) {
+      return res.status(200).send({ message: 'Product Updated', data: updatedProduct });
+    }
   } else {
-    res.status(404).send({ msg: "Product Not Found." });
+    return res.status(500).send({ message: ' Error in Updating Product.' });
   }
 });
 
@@ -96,6 +96,7 @@ router.delete("/:id", isAuth, isAdmin, async (req, res, next) => {
         if (err) throw err;
       });
     });
+    
     await deletedProduct.remove();
     res.send({ message: "Product Deleted" });
   } else {

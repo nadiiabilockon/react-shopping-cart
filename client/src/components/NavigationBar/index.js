@@ -8,7 +8,7 @@ import { NavBarDesktop } from "./NavBarDesktop";
 
 export const NavigationBar = ({ contextRef, userInfo }) => {
     const [visible, setVisible] = useState(false);
-    const userRole = userInfo.isAdmin === "true" ? "admin" : "user";
+    const userRole = userInfo?.isAdmin === "true" ? "admin" : "user";
 
     const leftItems = [
         { allowedRoles: ["user", "admin"], content: "Shop", to: "/" },

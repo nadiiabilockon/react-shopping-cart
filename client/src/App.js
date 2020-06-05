@@ -17,14 +17,16 @@ function App() {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
   const contextRef = useRef()
-  const userRole = userInfo.isAdmin === "true" ? "admin" : "user";
 
   const ProtectedRoute = ({
     component: Component,
     allowedRoles,
-    userRole,
+    userInfo,
     ...rest
   }) => {
+    
+    const userRole = userInfo?.isAdmin === "true" ? "admin" : "user";
+
     return (
       <Route
         {...rest}
@@ -56,7 +58,7 @@ function App() {
             <Route path="/orders/:id?" component={OrdersScreen} />
             <ProtectedRoute
               path="/products"
-              userRole={userRole}
+              userInfo={userInfo}
               allowedRoles={["admin"]}
               component={ProductsScreen}
             />
