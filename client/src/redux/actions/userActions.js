@@ -6,7 +6,8 @@ import {
   USER_SIGN_IN_REQUEST,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
-  USER_REGISTER_FAIL
+  USER_REGISTER_FAIL,
+  USER_LOGOUT
 } from "../../constants/userConstants";
 
 const signin = (email, password) => async (dispatch) => {
@@ -25,9 +26,11 @@ const signin = (email, password) => async (dispatch) => {
     });
     Cookie.set("userInfo", JSON.stringify(data));
   } catch (error) {
+    const validationError = error.response.data.errors && error.response.data.errors[0].msg
+
     dispatch({
       type: USER_SIGN_IN_FAIL,
-      payload: error.message,
+      payload: validationError || error.message,
     });
   }
 };
@@ -49,11 +52,17 @@ const register = (name, email, password) => async (dispatch) => {
     });
     Cookie.set("userInfo", JSON.stringify(data));
   } catch (error) {
+    const validationError = error.response.data.errors && error.response.data.errors[0].msg
     dispatch({
       type: USER_REGISTER_FAIL,
-      payload: error.response.data.msg || error.message,
+      payload: error.response.data.msg || validationError || error.message
     });
   }
 };
 
-export { signin, register };
+const logout = () => (dispatch) => {
+  Cookie.remove("userInfo");
+  dispatch({ type: USER_LOGOUT })
+}
+
+export { signin, register, logout };

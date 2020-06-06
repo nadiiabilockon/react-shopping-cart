@@ -4,7 +4,8 @@ import {
   USER_SIGN_IN_REQUEST,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
-  USER_REGISTER_FAIL
+  USER_REGISTER_FAIL,
+  USER_LOGOUT
 } from "../../constants/userConstants";
 
 function userSigninReducer(state = {}, action) {
@@ -23,6 +24,8 @@ function userSigninReducer(state = {}, action) {
         loading: false,
         error: action.payload,
       };
+    case USER_LOGOUT:
+      return {};
     default:
       return state;
   }

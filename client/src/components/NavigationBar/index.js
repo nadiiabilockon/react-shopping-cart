@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Responsive, Menu, Container, Sticky } from "semantic-ui-react";
+import { Responsive, Container, Sticky } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/actions/userActions';
 import "./index.less";
 
 import { NavBarMobile } from "./NavBarMobile";
@@ -9,6 +11,12 @@ import { NavBarDesktop } from "./NavBarDesktop";
 export const NavigationBar = ({ contextRef, userInfo }) => {
     const [visible, setVisible] = useState(false);
     const userRole = userInfo?.isAdmin === "true" ? "admin" : "user";
+
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+        dispatch(logout());
+    }
 
     const leftItems = [
         { allowedRoles: ["user", "admin"], content: "Shop", to: "/" },
@@ -27,8 +35,8 @@ export const NavigationBar = ({ contextRef, userInfo }) => {
                                 <Link to="/account">My account</Link>
                             </li>
                             <li>&nbsp; · &nbsp;</li>
-                            <li>
-                                <Link to="/logout">Log out</Link>
+                            <li onClick={handleLogout}>
+                                <Link to="/">Log out</Link>
                             </li>
                         </React.Fragment>
                     ) : (
