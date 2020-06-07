@@ -19,7 +19,7 @@ export default function OrdersTable({ orders }) {
                     orders.map((order) => (
                         <Table.Row key={order._id}>
                             <Table.Cell>{order._id}</Table.Cell>
-                            <Table.Cell>{order.createdAt}</Table.Cell>
+                            <Table.Cell>{new Date(order.createdAt).toISOString().slice(0,10)}</Table.Cell>
                             <Table.Cell>{order.totalPrice}</Table.Cell>
                             <Table.Cell>{order.isPaid ? '+' : '-'}</Table.Cell>
                             <Table.Cell textAlign="center">

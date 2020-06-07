@@ -36,7 +36,7 @@ export default function ProductScreen(props) {
     ) : (
       <div className="product-page">
         <Container>
-          <Grid centered>
+              <Grid centered stackable >
             <nav
               className="breadcrumb"
               role="navigation"
