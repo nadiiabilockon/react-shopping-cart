@@ -13,4 +13,4 @@ This is a simple e-commerce type of product list application built with React Re
 * Node & Express: Web API, Body Parser, File Upload, JWT
 * MongoDB: Mongoose, Aggregation
 
-![Shopping Cart Demo](public/demo.gif)
+![Shopping Cart Demo](client/public/demo.gif)
