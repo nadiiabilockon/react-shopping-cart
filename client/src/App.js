@@ -24,7 +24,7 @@ function App() {
     userInfo,
     ...rest
   }) => {
-    
+
     const userRole = userInfo?.isAdmin === "true" ? "admin" : "user";
 
     return (

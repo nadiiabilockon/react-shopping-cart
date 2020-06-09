@@ -55,8 +55,9 @@
   }
 
   .mobile-nav {
-    position: relative;
-    padding: 0 30px;
+    .ui.menu:not(.vertical), .mobile-nav--toggle  {
+      padding: 0 30px;
+    }
     .ui.text.menu {
       .item {
         margin: 0;

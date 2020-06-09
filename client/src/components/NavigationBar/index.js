@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Responsive, Container, Sticky } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
@@ -10,6 +10,7 @@ import { NavBarDesktop } from "./NavBarDesktop";
 
 export const NavigationBar = ({ contextRef, userInfo }) => {
     const [visible, setVisible] = useState(false);
+    const menuRef = useRef(null);
     const userRole = userInfo?.isAdmin === "true" ? "admin" : "user";
 
     const dispatch = useDispatch();
@@ -17,6 +18,19 @@ export const NavigationBar = ({ contextRef, userInfo }) => {
     const handleLogout = () => {
         dispatch(logout());
     }
+
+    const handleClickOutside = (event) => {
+        if (menuRef.current && !menuRef.current.contains(event.target)) {
+            setVisible(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('click', handleClickOutside, true);
+        return () => {
+            document.removeEventListener('click', handleClickOutside, true);
+        };
+    });
 
     const leftItems = [
         { allowedRoles: ["user", "admin"], content: "Shop", to: "/" },
@@ -54,8 +68,9 @@ export const NavigationBar = ({ contextRef, userInfo }) => {
             </ul>
             <Responsive maxWidth={Responsive.onlyMobile.maxWidth}>
                 <NavBarMobile
+                    menuRef={menuRef}
                     items={filtereItems}
-                    onToggle={() => setVisible((prevState) => !prevState)}
+                    onToggle={setVisible}
                     visible={visible}
                 />
             </Responsive>
