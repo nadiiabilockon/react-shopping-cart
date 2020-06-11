@@ -35,6 +35,7 @@ export const NavigationBar = ({ contextRef, userInfo }) => {
     const leftItems = [
         { allowedRoles: ["user", "admin"], content: "Shop", to: "/" },
         { allowedRoles: ["admin"], content: "Products", to: "/products" },
+        { allowedRoles: ["admin"], content: "Orders", to: "/orders" }
     ];
 
     const filtereItems = leftItems.filter(item => item.allowedRoles.some((role) => role === userRole))

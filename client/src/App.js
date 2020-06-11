@@ -55,6 +55,12 @@ function App() {
             <Route path="/shipping" component={ShippingScreen} />
             <Route path="/payment" component={PaymentScreen} />
             <Route path="/confirmorder" component={ConfirmOrderScreen} />
+            <ProtectedRoute
+              path="/orders"
+              userInfo={userInfo}
+              allowedRoles={["admin"]}
+              component={OrdersScreen}
+            />
             <Route path="/orders/:id?" component={OrdersScreen} />
             <ProtectedRoute
               path="/products"
