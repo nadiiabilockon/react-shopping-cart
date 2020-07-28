@@ -1,5 +1,5 @@
-import { productListReducer } from '../redux/reducers/productReducers';
-import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL } from '../constants/productConstants';
+import { productListReducer } from '../../redux/reducers/productReducers';
+import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL } from '../../constants/productConstants';
 
 describe('Product reducer', () => {
     const initialState = {
