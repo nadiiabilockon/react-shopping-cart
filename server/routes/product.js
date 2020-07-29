@@ -19,6 +19,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+const deleteImgFromUpload = (img) => {
+  let filePath = `./server/public/${img}`;
+  fs.unlink(filePath, (err) => {
+    if (err) throw err;
+  });
+}
+
 router.get("/:id", async (req, res, next) => {
   const productId = req.params.id;
   const product = await Product.findOne({ _id: productId });
@@ -74,7 +81,20 @@ router.put("/:id", isAuth, isAdmin, upload.array('productImages'), async (req, r
     product.brand = req.body.brand;
     product.price = req.body.price;
     product.countInStock = req.body.countInStock;
-    product.images = [...product.images, ...reqFiles];
+
+    const deletedImages = req.body.deletedImages;
+
+    // Check if delete one image or array and delete from uploads;
+    if (deletedImages) {
+      if (typeof deletedImages === 'string') {
+        deleteImgFromUpload(deletedImages)
+      } else {
+        deletedImages.forEach(img => deleteImgFromUpload(img));
+      }
+    }
+
+    const images = product.images.filter(img => deletedImages.indexOf(img) === -1);
+    product.images = [...images, ...reqFiles];
 
     const updatedProduct = await product.save();
 
@@ -90,13 +110,26 @@ router.delete("/:id", isAuth, isAdmin, async (req, res, next) => {
   const deletedProduct = await Product.findById(req.params.id);
 
   if (deletedProduct) {
+    deletedProduct.images.forEach(img => deleteImgFromUpload(img));
+
+    await deletedProduct.remove();
+    res.send({ message: "Product Deleted" });
+  } else {
+    res.send("Error in Deletion.");
+  }
+});
+
+router.delete("/:id", isAuth, isAdmin, async (req, res, next) => {
+  const deletedProduct = await Product.findById(req.params.id);
+
+  if (deletedProduct) {
     deletedProduct.images.forEach(img => {
       const filePath = `./server/public/${img}`;
       fs.unlink(filePath, (err) => {
         if (err) throw err;
       });
     });
-    
+
     await deletedProduct.remove();
     res.send({ message: "Product Deleted" });
   } else {

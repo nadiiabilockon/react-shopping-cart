@@ -25,6 +25,7 @@ export default function CreateProductModal({
     const [countInStock, setCountInStock] = useState("");
     const [images, setImages] = useState([]);
     const [previews, setPreviews] = useState([]);
+    const [deletedImages, setDeletedImages] = useState([]);
 
     const uploadMultipleFiles = (e) => {
         setImages([...images, e.target.files]);
@@ -42,6 +43,7 @@ export default function CreateProductModal({
             setPrice('')
             setCountInStock('')
             setImages([])
+            setDeletedImages([])
         }
         if (product._id) {
             setId(product._id)
@@ -54,6 +56,16 @@ export default function CreateProductModal({
         }
     }, [modalOpen, product]);
 
+    const deleteImg = (imgUrl) => {
+        const deletedImg = images.filter((img) => img === imgUrl);
+        const restImg = images.filter((img) => img !== imgUrl)
+        console.log(images.FileList )
+
+        setDeletedImages(...deletedImages, deletedImg)
+        setImages(restImg)
+        setPreviews(restImg)
+    }
+
     return (
         <Modal open={modalOpen} size="small" className="modal">
             <Grid textAlign="center" verticalAlign="middle">
@@ -62,16 +74,6 @@ export default function CreateProductModal({
                     <Form
                         size="large"
                         loading={loadingSave}
-                        onSubmit={(e) =>
-                            handleSubmit(e, {
-                                id,
-                                name,
-                                brand,
-                                price,
-                                countInStock,
-                                images,
-                            })
-                        }
                     >
                         <Form.Input
                             fluid
@@ -115,12 +117,30 @@ export default function CreateProductModal({
                         </div>
                         <Image.Group size="tiny">
                             {(previews || []).map((url, index) => (
-                                <Image key={index} src={url} alt="Product foto" />
+                                <div key={index} className="product-thumbnail ">
+                                    <Image src={url} alt="Product foto" />
+                                    <button className="btn-reset product-thumbnail__quantity"
+                                        onClick={() => deleteImg(url)}
+                                    >
+                                        <Icon name="delete" /></button>
+                                </div>
                             ))}
                         </Image.Group>
                         <Modal.Actions>
                             <Button content="Cancel" onClick={handleClose} />
-                            <Button content={product._id ? "Update" : "Create"} />
+                            <Button content={product._id ? "Update" : "Create"}
+                            onClick={
+                                (e) =>
+                                    handleSubmit(e, {
+                                        id,
+                                        name,
+                                        brand,
+                                        price,
+                                        countInStock,
+                                        images,
+                                        deletedImages
+                                    })
+                            }/>
                         </Modal.Actions>
                     </Form>
                     {errorSave && <Message error content={errorSave} />}

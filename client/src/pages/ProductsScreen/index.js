@@ -51,7 +51,7 @@ export default function ProductsScreen() {
     const handleSubmit = (e, data) => {
         e.preventDefault();
 
-        const { id, name, brand, price, countInStock, images } = data;
+        const { id, name, brand, price, countInStock, images, deletedImages } = data;
         const formData = new FormData();
 
         if (images.length) {
@@ -68,6 +68,7 @@ export default function ProductsScreen() {
         formData.append("brand", brand);
         formData.append("price", price);
         formData.append("countInStock", countInStock);
+        formData.append("deletedImages", deletedImages);
 
         dispatch(saveProduct(formData));
     };
@@ -79,33 +80,33 @@ export default function ProductsScreen() {
     ) : error ? (
         <div>{error}</div>
     ) : (
-            <Container className="products-wrapper">
-                <div>
-                    <Button
-                        size="tiny"
-                        content="Create new product"
-                        onClick={() => openModal({})}
+                <Container className="products-wrapper">
+                    <div>
+                        <Button
+                            size="tiny"
+                            content="Create new product"
+                            onClick={() => openModal({})}
+                        />
+                        <CreateProductModal
+                            product={product}
+                            modalOpen={modalOpen}
+                            handleClose={() => {
+                                setModalOpen(false);
+                                setProduct({});
+                            }}
+                            errorSave={errorSave}
+                            successSave={successSave}
+                            handleSubmit={handleSubmit}
+                            loadingSave={loadingSave}
+                        />
+                    </div>
+                    <h3>Products</h3>
+                    <ProductsTable
+                        deleteHandler={deleteHandler}
+                        openModal={openModal}
+                        products={products}
+                        loadingDelete={loadingDelete}
                     />
-                    <CreateProductModal
-                        product={product}
-                        modalOpen={modalOpen}
-                        handleClose={() => {
-                            setModalOpen(false);
-                            setProduct({});
-                        }}
-                        errorSave={errorSave}
-                        successSave={successSave}
-                        handleSubmit={handleSubmit}
-                        loadingSave={loadingSave}
-                    />
-                </div>
-                <h3>Products</h3>
-                <ProductsTable
-                    deleteHandler={deleteHandler}
-                    openModal={openModal}
-                    products={products}
-                    loadingDelete={loadingDelete}
-                />
-            </Container>
-        );
+                </Container>
+            );
 }
