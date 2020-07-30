@@ -11,7 +11,7 @@ export const NavBarMobile = ({ items, onToggle, visible, menuRef }) => (
             <Icon name="cart"></Icon>
           </Link>
         </Menu.Item>
-        <Menu.Item className="nav-logo">
+        <Menu.Item className="nav-logo" data-testid="logoIMG">
           <Link to="/" onClick={() => onToggle(false)}>
             hebe.
           </Link>

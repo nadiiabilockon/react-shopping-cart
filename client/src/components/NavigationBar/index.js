@@ -41,7 +41,7 @@ export const NavigationBar = ({ contextRef, userInfo }) => {
     const filtereItems = leftItems.filter(item => item.allowedRoles.some((role) => role === userRole))
 
     return (
-        <Sticky context={contextRef} className="navbar">
+        <Sticky context={contextRef} className="navbar" data-testid="headerComponent">
             <ul className="info-bar">
                 <Container textAlign="right">
                     {userInfo ? (
