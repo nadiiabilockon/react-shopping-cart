@@ -17,7 +17,7 @@ function orderListReducer(state = {
 }, action) {
     switch (action.type) {
         case ORDER_LIST_REQUEST:
-            return { loading: true };
+            return { loading: true, orders: [] };
         case ORDER_LIST_SUCCESS:
             return { loading: false, orders: action.payload };
         case ORDER_LIST_FAIL:
@@ -27,6 +27,6 @@ function orderListReducer(state = {
 }
 
 export {
-    orderCreateReducer, 
+    orderCreateReducer,
     orderListReducer
 }
