@@ -6,7 +6,7 @@ export const NavBarDesktop = ({ items }) => (
   <div className="desktop-nav">
     <Menu text>
       <Container>
-        <Menu.Item className="nav-logo">
+        <Menu.Item className="nav-logo" data-testid="logoIMG">
           <Link to="/">hebe.</Link>
         </Menu.Item>
         <Menu.Menu position='right'>
