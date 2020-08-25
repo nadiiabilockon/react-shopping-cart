@@ -3,7 +3,7 @@ import { ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_CREATE_FAIL, ORDER_LI
 function orderCreateReducer(state = {}, action) {
     switch (action.type) {
         case ORDER_CREATE_REQUEST:
-            return { loading: true };
+            return { loading: true, order: {} };
         case ORDER_CREATE_SUCCESS:
             return { loading: false, order: action.payload, success: true };
         case ORDER_CREATE_FAIL:
